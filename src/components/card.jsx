@@ -50,17 +50,17 @@ export default function RecipeReviewCard(props) {
           </IconButton>
         }
         title={props.article.title}
-        subheader={props.article.publishedAt}
+        subheader={props.article.published_date}
       />
       <CardMedia
         component="img"
 
-        image={!props.article.urlToImage? "https://resizer.glanacion.com/resizer/kZdiizTP2IWRah3Y4Psz6YKzgbY=/768x0/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/GF4WDVMYGNDKBCMWR7KXNFOE34.jpg":props.article.urlToImage}
+        image={!props.article.media? "https://resizer.glanacion.com/resizer/kZdiizTP2IWRah3Y4Psz6YKzgbY=/768x0/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/GF4WDVMYGNDKBCMWR7KXNFOE34.jpg":props.article.media}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {props.article.description}
+          {props.article.summary}
         </Typography>
       </CardContent>
       <CardActions disableSpacing >
@@ -72,7 +72,7 @@ export default function RecipeReviewCard(props) {
   justifyContent="flex-end"
   alignItems="flex-end"
 >
-        <Button variant="contained" target="_blank"  href={props.article.url}> More <ArrowForwardIosIcon/></Button>
+        <Button variant="contained" target="_blank"  href={props.article.link}> More <ArrowForwardIosIcon/></Button>
         </Grid>
         
       </CardActions>

@@ -13,14 +13,22 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ['business',
+const pages = ['news',
+'sport',
+'tech',
+'world',
+'finance',
+'politics',
+'business',
+'economics',
 'entertainment',
-'general',
-'health',
+'beauty',
+'travel',
+'music',
+'food',
 'science',
-'sports',
-'technology',
-'sources']
+'gaming',
+'energy']
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = (props) => {
@@ -38,6 +46,7 @@ const ResponsiveAppBar = (props) => {
 
     const { myValue } = event.currentTarget.dataset;
 props.setCat(myValue);
+console.log(myValue)
     setAnchorElNav(null);
   };
 
@@ -65,7 +74,7 @@ props.setCat(myValue);
               textDecoration: "none"
             }}
           >
-            LOGO
+news
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

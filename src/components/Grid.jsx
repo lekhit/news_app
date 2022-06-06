@@ -6,9 +6,12 @@ import Paper from "@mui/material/Paper";
 import Mycard from "./card";
 //import Masonry from '@mui/lab/Masonry';
 import MyJson from "../../sample.json";
-import Grid from "@mui/material/Grid";
+import {Grid,Button} from "@mui/material";
 import Navbar from "./navBar";
 import InfiniteScroll from "react-infinite-scroll-component";
+var axios = require("axios").default;
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -29,10 +32,27 @@ export default function FixedColumns() {
   const [page, setPage] = useState(1);
   const [cat, setCat] = useState("business");
 
+  
+  
+  
+  
+
   const updateNews = async () => {
-    const url = '';
-    let data = await fetch(url);
-    let parsedData = await data.json();
+    var options = {
+      method: 'GET',
+      url: 'https://api.newscatcherapi.com/v2/search',
+      params: {q:cat,lang:'en'},
+      headers: {
+        'x-api-key': 'ZrLXv658QrY7ZcydLLzTst_U6gCzFBP5D3DB-zcvHCs'
+      }
+    };
+    axios.request(options).then(function (response) {
+      setArticles(response.data.articles)
+      console.log(cat,response.data);
+    }).catch(function (error) {
+      console.error(cat,error);
+    });
+    //let parsedData = await data.json();
     //console.log(parsedData);
     //setArticles(parsedData.results);
   };
@@ -45,6 +65,7 @@ export default function FixedColumns() {
       <Navbar
       setCat={setCat}
       />
+      <Button onClick={updateNews}> start</Button>
       <Box sx={{ minHeight: 253 }}>
         <Grid
           container
@@ -57,7 +78,7 @@ export default function FixedColumns() {
             <Grid key={index} sx={{ p: 2 }}>
               <Item>
                 {" "}
-                <Mycard key={index} article={height} />
+              <Mycard key={index} article={height} />
               </Item>
             </Grid>
           ))}
