@@ -27,9 +27,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function FixedColumns() {
   const [articles, setArticles] = useState(MyJson.articles);
   const [page, setPage] = useState(1);
-
+  const [cat, setCat] = useState("business");
   const updateNews = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=4d3f11b21d3e48018dfa0e36e8b5c7e8`;
+    const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=4d3f11b21d3e48018dfa0e36e8b5c7e8&category=${cat}`;
     let data = await fetch(url);
     let parsedData = await data.json();
     setArticles(parsedData.articles);
