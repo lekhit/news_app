@@ -70,7 +70,7 @@ useEffect(()=>{
 
   return (
     <>
-    {loading && <Loading  setLoading={setLoading}/>}
+    {loading &&<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/> }
       <Navbar
       setCat={setCat}
       />
