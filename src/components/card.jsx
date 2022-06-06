@@ -27,6 +27,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -35,7 +36,7 @@ export default function RecipeReviewCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345,border:.5 }}>
+    <Card  sx={{ maxWidth: 345,border:.5 }}>
       <CardHeader
         // avatar={
         //   <Typography sx={{maxwidth:"20"}} variant="body1" color="red">
