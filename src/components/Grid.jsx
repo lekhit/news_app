@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React,{useState} from 'react';
+
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Mycard from './card';
-import Masonry from '@mui/lab/Masonry';
-import MyJson from '~/mysample.json';
+//import Masonry from '@mui/lab/Masonry';
+import MyJson from '~/sample.json';
 import Grid from '@mui/material/Grid';
 import Navbar from './navBar';
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,22 +17,26 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function FixedColumns() {
+  const [articles,setArticles]=useState(MyJson.articles);
   const updateNews = async () => {
 
   };
 
-  const { articles } = MyJson;
+  //const { articles } = MyJson;
   return (
     <>
     <Navbar/>
     <Box sx={{ minHeight: 253 }}>
-      <Masonry columns={{ xs: 1, sm: 3 }} spacing={0.5}>
+      <Grid container   justifyContent="space-around"
+  spacing={0.5}
+  alignItems="stretch"
+  >
         {articles.map((height, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index} sx={{ p: 2 }}>
+          <Grid key={index} sx={{ p: 2 }}>
             <Mycard key={index} article={height} />
           </Grid>
         ))}
-      </Masonry>
+      </Grid>
     </Box>
 
     </>
