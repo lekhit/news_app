@@ -13,19 +13,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = [
-  "business",
-  "entertainment",
-  "general",
-  "health",
-  "science",
-  "sports",
-  "technology",
-  "sources"
-];
+const pages = ['business',
+'entertainment',
+'general',
+'health',
+'science',
+'sports',
+'technology',
+'sources']
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,7 +34,10 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (event) => {
+
+    const { myValue } = event.currentTarget.dataset;
+props.setCat(myValue);
     setAnchorElNav(null);
   };
 
@@ -97,8 +98,8 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page} data-my-value={page}  onClick={handleCloseNavMenu} >
+                  <Typography textAlign="center" value={page}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>

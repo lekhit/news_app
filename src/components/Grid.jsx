@@ -28,18 +28,23 @@ export default function FixedColumns() {
   const [articles, setArticles] = useState(MyJson.articles);
   const [page, setPage] = useState(1);
   const [cat, setCat] = useState("business");
+
   const updateNews = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=4d3f11b21d3e48018dfa0e36e8b5c7e8&category=${cat}`;
+    const url = '';
     let data = await fetch(url);
     let parsedData = await data.json();
-    setArticles(parsedData.articles);
+    //console.log(parsedData);
+    //setArticles(parsedData.results);
   };
 
   //const { articles } = MyJson;
 
+
   return (
     <>
-      <Navbar />
+      <Navbar
+      setCat={setCat}
+      />
       <Box sx={{ minHeight: 253 }}>
         <Grid
           container
@@ -47,12 +52,7 @@ export default function FixedColumns() {
           spacing={0.5}
           alignItems="stretch"
         >
-          {/* { <InfiniteScroll
-          dataLength={this.state.items.length}
-          next={this.fetchMoreData}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
-        > } */}
+          
           {articles.map((height, index) => (
             <Grid key={index} sx={{ p: 2 }}>
               <Item>
@@ -61,7 +61,7 @@ export default function FixedColumns() {
               </Item>
             </Grid>
           ))}
-          {/* </InfiniteScroll> */}
+         
         </Grid>
       </Box>
     </>
