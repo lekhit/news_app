@@ -47,12 +47,7 @@ export default function FixedColumns() {
           spacing={0.5}
           alignItems="stretch"
         >
-          {/* { <InfiniteScroll
-          dataLength={this.state.items.length}
-          next={this.fetchMoreData}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
-        > } */}
+          
           {articles.map((height, index) => (
             <Grid key={index} sx={{ p: 2 }}>
               <Item>
@@ -61,7 +56,7 @@ export default function FixedColumns() {
               </Item>
             </Grid>
           ))}
-          {/* </InfiniteScroll> */}
+         
         </Grid>
       </Box>
     </>
