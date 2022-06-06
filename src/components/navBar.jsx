@@ -44,9 +44,9 @@ const ResponsiveAppBar = (props) => {
 
   const handleCloseNavMenu = (event) => {
 
-    const { myValue } = event.currentTarget.dataset;
+    const { myValue } = event.target.dataset;
 props.setCat(myValue);
-console.log(myValue)
+
     setAnchorElNav(null);
   };
 
@@ -108,7 +108,7 @@ news
             >
               {pages.map((page) => (
                 <MenuItem key={page} data-my-value={page}  onClick={handleCloseNavMenu} >
-                  <Typography textAlign="center" value={page}>{page}</Typography>
+                  <Typography textAlign="center" data-my-value={page}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -130,7 +130,7 @@ news
               textDecoration: "none"
             }}
           >
-            LOGO
+            News
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -138,6 +138,7 @@ news
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
+                data-my-value={page}
               >
                 {page}
               </Button>
