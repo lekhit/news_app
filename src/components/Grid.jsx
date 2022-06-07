@@ -8,8 +8,8 @@ import Mycard from "./card";
 import MyJson from "../../sample.json";
 import {Grid,Button} from "@mui/material";
 import Navbar from "./navBar";
-import InfiniteScroll from "react-infinite-scroll-component";
 var axios = require("axios").default;
+import InfiniteScroll from 'react-infinite-scroller';
 
 import Loading from './loading';
 
@@ -33,6 +33,7 @@ export default function FixedColumns() {
   const [cat, setCat] = useState("business");
 
   const [loading,setLoading]=useState(true);
+  const [more,setMore]=useState(true);
   
   
   const [progress,setProgress]=useState(10);
@@ -61,6 +62,28 @@ export default function FixedColumns() {
     //console.log(parsedData);
     //setArticles(parsedData.results);
   };
+const fetchMore=async ()=>{
+  setLoading(true);
+setPage(page+1);
+    var options = {
+      method: 'GET',
+      url: 'https://api.newscatcherapi.com/v2/search',
+      params: {q:cat,lang:'en',page:page},
+      headers: {
+        'x-api-key': 'ZrLXv658QrY7ZcydLLzTst_U6gCzFBP5D3DB-zcvHCs'
+      }
+    };
+    
+    axios.request(options).then(function (response) {
+   
+      setArticles(articles.concat(response.data.articles))
+      setMore(!(response.data.pages===more))
+      setLoading(false)
+      console.log(cat,response.data);
+    }).catch(function (error) {
+      console.error(cat,error);
+    });
+}
 
   //const { articles } = MyJson;
 useEffect(()=>{
@@ -77,6 +100,12 @@ useEffect(()=>{
 
       <Button onClick={updateNews}> start</Button>
       <Box sx={{ minHeight: 253 }}>
+      <InfiniteScroll
+    pageStart={page}
+    loadMore={fetchMore}
+    hasMore={more}
+    loader={<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/>}
+>
         <Grid
           container
           justifyContent="space-around"
@@ -84,7 +113,7 @@ useEffect(()=>{
           alignItems="stretch"
         >
           
-          {!loading && articles.map((height, index) => (
+          {articles.map((height, index) => (
             <Grid key={index} sx={{ p: 2 }}>
               <Item>
                 {" "}
@@ -92,8 +121,9 @@ useEffect(()=>{
               </Item>
             </Grid>
           ))}
-         
+        
         </Grid>
+        </InfiniteScroll>
       </Box>
       <Button onClick={()=>{setPage(page+1)}}>Next</Button>
     </>
