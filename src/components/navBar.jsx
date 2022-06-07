@@ -55,7 +55,7 @@ props.setCat(myValue);
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

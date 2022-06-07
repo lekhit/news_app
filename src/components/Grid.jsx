@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useCallback } from "react";
 
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
@@ -38,7 +38,7 @@ export default function FixedColumns() {
   
   const [progress,setProgress]=useState(10);
 
-  const updateNews = async () => {
+  const updateNews =  () => {
     setLoading(true);
     var options = {
       method: 'GET',
@@ -57,7 +57,7 @@ export default function FixedColumns() {
       console.error(cat,error);
     });
 
-    
+    setLoading(false);
     //let parsedData = await data.json();
     //console.log(parsedData);
     //setArticles(parsedData.results);
@@ -66,31 +66,54 @@ export default function FixedColumns() {
   const fetch_more =async()=>{
 
   }
-const fetchMore=async ()=>{
- if(!loading){
-   setPage(page+1)
- }
-}
+const fetchMore= useCallback( ()=>{
+  if (loading ) {console.log('fetch more caller');return;}
+
+  console.log(loading,'function called to load');
+  setPage(page+1);
+  setLoading(true);
+  var options = {
+    method: 'GET',
+    url: 'https://api.newscatcherapi.com/v2/search',
+    params: {q:cat,lang:'en',page:page},
+    headers: {
+      'x-api-key': 'ZrLXv658QrY7ZcydLLzTst_U6gCzFBP5D3DB-zcvHCs'
+    }
+  }
+  
+  setProgress(30);
+  axios.request(options).then(function (response) {
+    setProgress(70);
+    setArticles(articles.concat(response.data.articles))
+    
+    console.log(cat,response.data);
+  }).catch(function (error) {
+    console.error(cat,error);
+    setLoading(false);
+  });
+  
+},[loading,page]);
 
   //const { articles } = MyJson;
 useEffect(()=>{
   updateNews();
   //console.log(page)
-},[cat,page])
+},[cat])
 
   return (
     <>
-    {loading &&<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/> }
+    {/* {loading &&<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/> } */}
       <Navbar
       setCat={setCat}
       />
 
       <Button onClick={updateNews}> start</Button>
+      <div>
       <Box sx={{ minHeight: 253 }}>
       <InfiniteScroll
     loadMore={fetchMore}
     hasMore={more}
-    loader={<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/>}
+    loader={< div>loading...</div>}
 >
      <Grid
           container
@@ -112,6 +135,7 @@ useEffect(()=>{
         </Grid>
         </InfiniteScroll>
       </Box>
+      </div>
       <Button onClick={()=>{setPage(page+1)}}>Next</Button>
     </>
   );
