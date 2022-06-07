@@ -62,32 +62,19 @@ export default function FixedColumns() {
     //console.log(parsedData);
     //setArticles(parsedData.results);
   };
+
+  const fetch_more =async()=>{
+
+  }
 const fetchMore=async ()=>{
-  setLoading(true);
-setPage(page+1);
-    var options = {
-      method: 'GET',
-      url: 'https://api.newscatcherapi.com/v2/search',
-      params: {q:cat,lang:'en',page:page},
-      headers: {
-        'x-api-key': 'ZrLXv658QrY7ZcydLLzTst_U6gCzFBP5D3DB-zcvHCs'
-      }
-    };
-    
-    axios.request(options).then(function (response) {
-   
-      setArticles(articles.concat(response.data.articles))
-      setMore(!(response.data.pages===more))
-      setLoading(false)
-      console.log(cat,response.data);
-    }).catch(function (error) {
-      console.error(cat,error);
-    });
+ if(!loading){
+   setPage(page+1)
+ }
 }
 
   //const { articles } = MyJson;
 useEffect(()=>{
-  //updateNews();
+  updateNews();
   //console.log(page)
 },[cat,page])
 
@@ -101,18 +88,18 @@ useEffect(()=>{
       <Button onClick={updateNews}> start</Button>
       <Box sx={{ minHeight: 253 }}>
       <InfiniteScroll
-    pageStart={page}
     loadMore={fetchMore}
     hasMore={more}
     loader={<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/>}
 >
-        <Grid
+     <Grid
           container
           justifyContent="space-around"
           spacing={0.5}
           alignItems="stretch"
         >
           
+        
           {articles.map((height, index) => (
             <Grid key={index} sx={{ p: 2 }}>
               <Item>
