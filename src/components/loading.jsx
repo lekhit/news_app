@@ -15,7 +15,7 @@ export default function LinearDeterminate(props) {
         const diff = Math.random() * 10;
         return Math.min(oldProgress + diff, 100);
       });
-    }, 50);
+    }, 5);
 
     return () => {
       clearInterval(timer);

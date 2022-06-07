@@ -67,7 +67,7 @@ export default function FixedColumns() {
 
   }
 const fetchMore= useCallback( ()=>{
-  if (loading ) {console.log('fetch more caller');return;}
+  if (loading ) {console.log('fetch more caller'); return;}
 
   console.log(loading,'function called to load');
   setPage(page+1);
@@ -83,9 +83,9 @@ const fetchMore= useCallback( ()=>{
   
   setProgress(30);
   axios.request(options).then(function (response) {
-    setProgress(70);
+    setProgress(99);
     setArticles(articles.concat(response.data.articles))
-    
+    setLoading(false);
     console.log(cat,response.data);
   }).catch(function (error) {
     console.error(cat,error);
@@ -113,7 +113,8 @@ useEffect(()=>{
       <InfiniteScroll
     loadMore={fetchMore}
     hasMore={more}
-    loader={< div>loading...</div>}
+    loader={<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/>}
+    // loader={< div>loading...</div>}
 >
      <Grid
           container
