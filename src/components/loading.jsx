@@ -24,7 +24,7 @@ export default function LinearDeterminate(props) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgress variant="determinate" value={props.progress} />
+      <LinearProgress variant="determinate" color="warning" value={props.progress} />
     </Box>
   );
 }
