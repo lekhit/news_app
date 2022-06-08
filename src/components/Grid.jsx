@@ -27,14 +27,16 @@ const Item = styled(Paper)(({ theme }) => ({
   onClick: {}
 }));
 
+
 export default function FixedColumns() {
   const [articles, setArticles] = useState(MyJson.articles);
   const [page, setPage] = useState(1);
-  const [cat, setCat] = useState("business");
+  
 
   const [loading,setLoading]=useState(true);
   const [more,setMore]=useState(true);
   
+const [cat, setCat] = useState("business");
   
   const [progress,setProgress]=useState(10);
 
@@ -85,7 +87,7 @@ const fetchMore= useCallback( ()=>{
   axios.request(options).then(function (response) {
     setProgress(99);
     setArticles(articles.concat(response.data.articles))
-    setLoading(false);
+    //setLoading(false);
     console.log(cat,response.data);
   }).catch(function (error) {
     console.error(cat,error);
@@ -102,7 +104,7 @@ useEffect(()=>{
 
   return (
     <>
-    {/* {loading &&<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/> } */}
+    {loading &&<Loading progress={progress} setProgress={setProgress} setLoading={setLoading}/> } 
       <Navbar
       setCat={setCat}
       />
